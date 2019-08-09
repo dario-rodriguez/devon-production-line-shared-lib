@@ -783,8 +783,8 @@ class JenkinsConfiguration implements Serializable {
     }
 
     public void gitlabApiToken(String id) {
-        GitLabApiToken found = SystemCredentialsProvider.get().getCredentials().find {
-            if (it instanceof GitLabApiToken || it instanceof GitLabApiTokenImpl) {
+        GitLabApiTokenImpl found = SystemCredentialsProvider.get().getCredentials().find {
+            if (it instanceof GitLabApiTokenImpl) {
                 it.getId() == id
             }
         } 
