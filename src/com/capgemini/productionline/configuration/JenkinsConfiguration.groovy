@@ -31,6 +31,7 @@ import org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval
 import ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation
 import ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstaller
 import com.dabsquared.gitlabjenkins.connection.GitLabApiTokenImpl
+import com.dabsquared.gitlabjenkins.connection.GitLabApiToken
 
 /**
  * Contains the configuration methods of the jenkins component
@@ -782,12 +783,13 @@ class JenkinsConfiguration implements Serializable {
         }
     }
 
-    public void gitlabApiToken(String id) {
-        GitLabApiTokenImpl found = SystemCredentialsProvider.get().getCredentials().find {
-            if (it instanceof GitLabApiTokenImpl) {
+    public String gitlabApiToken(String id) {
+
+        GitLabApiToken found = SystemCredentialsProvider.get().getCredentials().find {
+            if (it instanceof GitLabApiToken || it instanceof GitLabApiTokenImpl) {
                 it.getId() == id
             }
-        } as GitLabApiTokenImpl
+        } as GitLabApiToken
 
         if (found) {
             return found.getApiToken().getPlainText()
