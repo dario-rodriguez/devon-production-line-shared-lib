@@ -30,6 +30,7 @@ import org.jenkinsci.plugins.docker.commons.tools.DockerToolInstaller
 import org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval
 import ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation
 import ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstaller
+import com.dabsquared.gitlabjenkins.connection.GitLabApiTokenImpl
 
 /**
  * Contains the configuration methods of the jenkins component
@@ -778,6 +779,20 @@ class JenkinsConfiguration implements Serializable {
             openshiftDSL.save()
         } else {
             context.println "Openshift configuration with name ${clusterName} already existes"
+        }
+    }
+
+    public void gitlabApiToken(String id) {
+        GitLabApiToken found = SystemCredentialsProvider.get().getCredentials().find {
+            if (it instanceof GitLabApiToken || it instanceof GitLabApiTokenImpl) {
+                it.getId() == id
+            }
+        } 
+
+        if (found) {
+            return found.getApiToken().getPlainText()
+        } else {
+            context.println "gitLabApitToken with ID ${id} not found"
         }
     }
 }
