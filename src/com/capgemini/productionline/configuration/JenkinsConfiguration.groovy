@@ -744,7 +744,7 @@ class JenkinsConfiguration implements Serializable {
      */
     public OpenShiftTokenCredentials createCredatialObjectUsernamePassword(String id, String desc, String token) {
 
-        OpenShiftTokenCredentials found = SystemCredentialsProvider.get().getCredentials().find {
+        OpenShiftTokenCredentials found = SystemCredentialsProvider.getInstance().getCredentials().find {
             if (it instanceof OpenShiftTokenCredentials) {
                 it.getId() == id
             }
@@ -785,7 +785,7 @@ class JenkinsConfiguration implements Serializable {
 
     public String gitlabApiToken(String id) {
 
-        GitLabApiToken found = SystemCredentialsProvider.get().getCredentials().find {
+        GitLabApiToken found = SystemCredentialsProvider.getInstance().getCredentials().find {
             context.println (it).getId()
             context.println it.getClass()
             if (it instanceof GitLabApiToken || it instanceof GitLabApiTokenImpl) {
