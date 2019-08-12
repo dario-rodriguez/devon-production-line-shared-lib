@@ -755,7 +755,7 @@ class JenkinsConfiguration implements Serializable {
             def credObj = new OpenShiftTokenCredentials(CredentialsScope.GLOBAL, id, desc, Secret.fromString(token))
             context.println "Add credentials " + id + " in global store"
             // store global credential object
-            SystemCredentialsProvider.get().getStore().addCredentials(Domain.global(), credObj)
+            SystemCredentialsProvider.getInstance().getStore().addCredentials(Domain.global(), credObj)
             return credObj
         }
 
