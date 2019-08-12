@@ -786,8 +786,6 @@ class JenkinsConfiguration implements Serializable {
     public String gitlabApiToken(String id) {
 
         GitLabApiToken found = SystemCredentialsProvider.getInstance().getCredentials().find {
-            context.println (it).getId()
-            context.println it.getClass()
             if (it instanceof GitLabApiToken || it instanceof GitLabApiTokenImpl) {
                 it.getId() == id
             }
@@ -798,5 +796,7 @@ class JenkinsConfiguration implements Serializable {
         } else {
             context.println "gitLabApitToken with ID ${id} not found"
         }
+
+        return ''
     }
 }
